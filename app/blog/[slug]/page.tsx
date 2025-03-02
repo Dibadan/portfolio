@@ -3,18 +3,10 @@ import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { fetchArticles, fetchArticleBySlug } from "@/sanity/sanity-query";
 import { BlogPostHeader } from "@/components/blog/blog-post-header";
 
-export async function generateStaticParams() {
-  // Fetch all articles to generate static paths
-  const articles = await fetchArticles(); // Ensure fetchArticles is imported correctly
-  return articles.map((post:any) => ({
-    slug: post.slug.current, // Use the slug from the article schema
-  }));
-}
-
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string }; // Explicitly typing the params object
 }) {
   // Fetch the article by slug
   const post = await fetchArticleBySlug(params.slug);
