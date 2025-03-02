@@ -1,0 +1,29 @@
+# Dependencies
+/node_modules
+
+# Bolt
+/.bolt/
+
+
+# Next.js
+/.next/
+
+# Production
+/build
+
+
+# Local env files
+.env.local
+.env
+.env.development
+.env.test
+.env.production
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+
