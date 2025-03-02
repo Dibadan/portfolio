@@ -11,11 +11,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+type Props = {
+  params: {
+    slug: string
+  }
+}
+
+export default async function BlogPost({ params }: Props) {
   // Fetch the article by slug
   const post = await fetchArticleBySlug(params.slug);
   console.log("POST = ", post)
