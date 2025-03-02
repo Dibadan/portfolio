@@ -9,16 +9,17 @@ export async function generateStaticParams() {
   }));
 }
 
-// In Next.js 15, we need to follow their page component pattern exactly
-type Props = {
-  params: {
-    slug: string;
-  };
-  searchParams: Record<string, string | string[] | undefined>;
-};
-
-export default async function BlogPostPage({ params, searchParams }: Props) {
-  const post = await fetchArticleBySlug(params.slug);
+// Use a simpler type approach without referring to PageProps
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  // Extract the slug from params
+  const { slug } = params;
+  
+  // Fetch the post data
+  const post = await fetchArticleBySlug(slug);
 
   if (!post) {
     notFound();
