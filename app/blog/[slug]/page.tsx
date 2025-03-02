@@ -1,19 +1,16 @@
-
 import { notFound } from "next/navigation";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { fetchArticles, fetchArticleBySlug } from "@/sanity/sanity-query";
 
+export async function generateStaticParams() {
+  const articles = await fetchArticles();
+  return articles.map((post: any) => ({
+    slug: post.slug.current,
+  }));
+}
 
-// Use a simpler type approach without referring to PageProps
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  // Extract the slug from params
-  //const { slug } = params;
-  
-  // Fetch the post data
+// Define a simple page component
+export default async function Page({ params }: { params: { slug: string } }) {
   const post = await fetchArticleBySlug(params.slug);
 
   if (!post) {
