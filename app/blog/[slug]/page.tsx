@@ -1,4 +1,4 @@
-/*
+
 import { notFound } from "next/navigation";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { fetchArticles, fetchArticleBySlug } from "@/sanity/sanity-query";
@@ -40,4 +40,3 @@ export default async function BlogPostPage({
     </div>
   );
 }
-  */
