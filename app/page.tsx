@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectCard } from "@/components/project-card";
-import { projects } from "@/lib/data";
+import { fetchProjects } from "@/sanity/sanity-query"; // Import fetchProjects
 import { LoadingScreen } from "@/components/loading-screen";
 import { Navigation } from "@/components/navigation";
 
@@ -19,7 +19,25 @@ const HeroSection = dynamic(
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [projects, setProjects] = useState([]); // State to store fetched projects
   const [isModelLoaded, setIsModelLoaded] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedProjects = await fetchProjects(); // Fetch projects from Sanity
+        console.log("FP = ", fetchedProjects)
+        setProjects(fetchedProjects || []); // Set to empty array if no data
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setProjects([]); // In case of error, fallback to empty array
+      } finally {
+        setIsLoading(false); // Set loading to false once data is fetched
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (isModelLoaded) {
@@ -52,9 +70,13 @@ export default function Home() {
             >
               <h2 className="text-5xl md:text-7xl font-bold mb-16">MY PROJECTS</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {projects.map((project, index) => (
-                  <ProjectCard key={index} project={project} index={index} />
-                ))}
+                {projects.length > 0 ? (
+                  projects.map((project, index) => (
+                    <ProjectCard key={index} project={project} index={index} />
+                  ))
+                ) : (
+                  <p>No projects found.</p>
+                )}
               </div>
             </motion.div>
           </section>

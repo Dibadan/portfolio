@@ -42,12 +42,8 @@ export function ProjectsList({ initialProjects }: ProjectsListProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {displayedProjects.map((project, index) => (
           <ProjectCard 
-            key={project.slug.current} 
-            project={{
-              ...project,
-              image: project.image?.asset?.url || '',
-              slug: project.slug.current,
-            }}
+            key={project._id} 
+            project={project}
             index={index} 
           />
         ))}
