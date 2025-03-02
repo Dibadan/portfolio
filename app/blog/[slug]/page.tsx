@@ -11,12 +11,11 @@ export async function generateStaticParams() {
   }));
 }
 
-interface PageProps {
+export default async function BlogPostPage({
+  params,
+}: {
   params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export default async function BlogPost({ params }: PageProps) {
+}) {
   // Fetch the article by slug
   const post = await fetchArticleBySlug(params.slug);
   console.log("POST = ", post)
