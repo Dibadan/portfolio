@@ -26,15 +26,15 @@ export function BlogPostHeader({ post }: BlogPostHeaderProps) {
         animate={{ opacity: 1, y: 0 }}
         className="space-y-8"
       >
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
+          {post.title}
+        </h1>
+
         <div className="flex items-center text-sm text-gray-400">
           <Calendar className="w-4 h-4 mr-2" />
           {post.publishedAt}
         </div>
         
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-          {post.title}
-        </h1>
-
         <div className="relative aspect-[2/1] rounded-lg overflow-hidden">
           <Image
             src={post.mainImage || ''}

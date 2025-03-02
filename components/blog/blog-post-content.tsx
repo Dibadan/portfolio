@@ -11,8 +11,8 @@ interface BlogPostContentProps {
 
 export function BlogPostContent({ post }: BlogPostContentProps) {
   return (
-    <div className="min-h-screen pt-20">
-      <article className="py-20 px-4">
+    <div className="min-h-screen pt-16">
+      <article className="py-6 px-4">
         <div className="max-w-4xl mx-auto">
           <BlogPostHeader post={post} />
           <BlogPostBody content={post.content} />

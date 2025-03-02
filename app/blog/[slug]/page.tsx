@@ -18,8 +18,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="min-h-screen pt-20">
-      <article className="py-20 px-4">
+    <div className="min-h-screen">
+      <article className="px-4">
         <div className="max-w-4xl mx-auto">
           <BlogPostContent
             post={{
