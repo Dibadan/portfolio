@@ -3,23 +3,25 @@ import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { fetchArticles, fetchArticleBySlug } from "@/sanity/sanity-query";
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles(); // Fetch all articles
+  const articles = await fetchArticles();
   return articles.map((post: any) => ({
-    slug: post.slug.current, // Correct slug structure
+    slug: post.slug.current,
   }));
 }
 
-interface BlogPostParams {
+// In Next.js 15, we need to follow their page component pattern exactly
+type Props = {
   params: {
     slug: string;
   };
-}
+  searchParams: Record<string, string | string[] | undefined>;
+};
 
-export default async function BlogPostPage({ params }: BlogPostParams) {
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const post = await fetchArticleBySlug(params.slug);
 
   if (!post) {
-    notFound(); // If the post doesn't exist, show 404
+    notFound();
   }
 
   return (
