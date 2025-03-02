@@ -4,7 +4,8 @@ import { Project } from "@/lib/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ProjectHeaderProps {
   project: Project;
@@ -30,7 +31,7 @@ export function ProjectHeader({ project }: ProjectHeaderProps) {
           >
             {project.title}
           </motion.h1>
-          <p className="text-xl text-gray-400 mb-8">{project.fullDescription}</p>
+          <p className="text-xl text-gray-400 mb-8">{project.description}</p>
           <div className="flex flex-wrap gap-2 mb-8">
             {project.technologies.map((tech) => (
               <span
@@ -40,6 +41,22 @@ export function ProjectHeader({ project }: ProjectHeaderProps) {
                 {tech}
               </span>
             ))}
+          </div>
+          <div className="flex gap-4">
+            {project.liveUrl && (
+              <Button asChild variant="default" className="rounded-full">
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+                  View Live <ArrowUpRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            )}
+            {project.repoUrl && (
+              <Button asChild variant="outline" className="rounded-full">
+                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+                  View Code <ArrowUpRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            )}
           </div>
         </div>
         <div className="relative aspect-video rounded-lg overflow-hidden">

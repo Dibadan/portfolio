@@ -14,15 +14,16 @@ export const fetchProjects = async () => {
     title,
     slug,
     description,
+    category,
     image{
       asset->{
         _id,
         url
       }
     },
+    technologies,
     liveUrl,
     repoUrl,
-    technologies,
     publishedAt
   } | order(publishedAt desc)`;
 
@@ -143,6 +144,39 @@ export const fetchAuthorBySlug = async (slug: string) => {
       }
     },
     socialLinks
+  }`;
+
+  return await sanityClient.fetch(query, { slug });
+};
+
+// Fetch a single project by slug
+export const fetchProjectBySlug = async (slug: string) => {
+  const query = `*[_type == "project" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug,
+    description,
+    fullDescription,
+    challenge,
+    solution,
+    results,
+    category,
+    image{
+      asset->{
+        _id,
+        url
+      }
+    },
+    images[]{
+      asset->{
+        _id,
+        url
+      }
+    },
+    technologies,
+    liveUrl,
+    repoUrl,
+    publishedAt
   }`;
 
   return await sanityClient.fetch(query, { slug });

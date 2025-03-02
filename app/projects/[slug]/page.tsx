@@ -1,15 +1,22 @@
-"use client";
-
-import { projects } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { ProjectPageContent } from "@/components/project/project-page-content";
+import { fetchProjects, fetchProjectBySlug } from "@/sanity/sanity-query";
 
-export default function ProjectPage({
+export async function generateStaticParams() {
+  const projects = await fetchProjects();
+  return projects.map((project: any) => ({
+    slug: project.slug.current,
+  }));
+}
+
+export default async function ProjectPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const project = projects.find((p) => p.slug === params.slug);
+  const project = await fetchProjectBySlug(params.slug);
+ 
+ 
 
   if (!project) {
     notFound();

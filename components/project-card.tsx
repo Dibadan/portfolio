@@ -19,7 +19,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       transition={{ delay: index * 0.2 }}
       className="group relative"
     >
-      <Link href={`/works/${project.slug}`}>
+      <Link href={`/projects/${project.slug}`}>
         <div className="aspect-[4/3] bg-gray-900 rounded-lg overflow-hidden">
           <div className="relative w-full h-full">
             <Image
